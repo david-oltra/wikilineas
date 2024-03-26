@@ -7,7 +7,7 @@ class TB6612
     public:
 
         TB6612(gpio_num_t _MOTOR_A_1, gpio_num_t _MOTOR_A_2, gpio_num_t _MOTOR_A_PWM, 
-               gpio_num_t _MOTOR_B_1, gpio_num_t _MOTOR_B_2, gpio_num_t _MOTOR_B_PWM,
+               gpio_num_t _MOTOR_B_1, gpio_num_t _MOTOR_B_2, gpio_num_t _MOTOR_B_PWM, gpio_num_t _STBY,
                int _PWM_MOTOR_A, int _PWM_MOTOR_B);
 
         enum DIRECTION
@@ -29,7 +29,7 @@ class TB6612
         */
 
     private:
-        gpio_num_t MOTOR_A_1, MOTOR_A_2, MOTOR_B_1, MOTOR_B_2, MOTOR_A_PWM, MOTOR_B_PWM;
+        gpio_num_t MOTOR_A_1, MOTOR_A_2, MOTOR_B_1, MOTOR_B_2, MOTOR_A_PWM, MOTOR_B_PWM, STBY;
         int PWM_MOTOR_A, PWM_MOTOR_B;
 
 };

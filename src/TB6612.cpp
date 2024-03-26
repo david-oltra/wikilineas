@@ -2,7 +2,9 @@
 #include <TB6612.h>
 #include <driver/ledc.h>
 
-TB6612::TB6612(gpio_num_t _MOTOR_A_1, gpio_num_t _MOTOR_A_2, gpio_num_t _MOTOR_A_PWM, gpio_num_t _MOTOR_B_1, gpio_num_t _MOTOR_B_2, gpio_num_t _MOTOR_B_PWM, int _PWM_MOTOR_A = 50, int _PWM_MOTOR_B = 50):
+TB6612::TB6612(gpio_num_t _MOTOR_A_1, gpio_num_t _MOTOR_A_2, gpio_num_t _MOTOR_A_PWM, 
+                gpio_num_t _MOTOR_B_1, gpio_num_t _MOTOR_B_2, gpio_num_t _MOTOR_B_PWM, gpio_num_t _STBY,
+                int _PWM_MOTOR_A = 50, int _PWM_MOTOR_B = 50):
     MOTOR_A_1 (_MOTOR_A_1),
     MOTOR_A_2 (_MOTOR_A_2),
     MOTOR_B_1 (_MOTOR_B_1),
@@ -15,7 +17,7 @@ TB6612::TB6612(gpio_num_t _MOTOR_A_1, gpio_num_t _MOTOR_A_2, gpio_num_t _MOTOR_A
     gpio_config_t io_conf = {};
     io_conf.intr_type = GPIO_INTR_DISABLE;
     io_conf.mode = GPIO_MODE_OUTPUT;
-    io_conf.pin_bit_mask = (1ULL << MOTOR_A_1) | (1ULL << MOTOR_A_2) | (1ULL << MOTOR_B_1) | (1ULL << MOTOR_B_2) | (1ULL << MOTOR_A_PWM) | (1ULL << MOTOR_B_PWM);
+    io_conf.pin_bit_mask = (1ULL << MOTOR_A_1) | (1ULL << MOTOR_A_2) | (1ULL << MOTOR_B_1) | (1ULL << MOTOR_B_2) | (1ULL << MOTOR_A_PWM) | (1ULL << MOTOR_B_PWM) | (1ULL << STBY);; 
     io_conf.pull_down_en = GPIO_PULLDOWN_DISABLE;
     io_conf.pull_up_en = GPIO_PULLUP_DISABLE;
     gpio_config(&io_conf);
@@ -24,6 +26,7 @@ TB6612::TB6612(gpio_num_t _MOTOR_A_1, gpio_num_t _MOTOR_A_2, gpio_num_t _MOTOR_A
     gpio_set_level(MOTOR_A_2, 0);
     gpio_set_level(MOTOR_B_1, 0);
     gpio_set_level(MOTOR_B_2, 0);
+    gpio_set_level(STBY, 1);
 
     // Prepare and then apply the LEDC PWM timer configuration
     ledc_timer_config_t ledc_timer = {
